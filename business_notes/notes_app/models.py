@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime, timedelta
 from django.utils.translation import gettext_lazy as _
 
+from django.contrib.auth.models import User
 
 class Note(models.Model):
     active = "Активно"
@@ -15,6 +16,7 @@ class Note(models.Model):
     importance = models.BooleanField(default=True, verbose_name="Важность")
     condition = models.CharField(max_length=50, choices=conditions, verbose_name="Состояние")
     create_at = models.DateTimeField(default=datetime.now() + timedelta(days=1), verbose_name="Время создания")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Запись №{self.id}"
