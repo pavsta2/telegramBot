@@ -8,7 +8,7 @@ from art import tprint
 
 class ConvertPDFToMP3:
     """
-    Класс для конвертации файлов PDF и JPG в файлы MP3
+    Класс для конвертации файлов PDF и JPG в файлы MP3 ...
     """
 
     def jpg_to_mp3(self, file_path: str, lang: str) -> None:
