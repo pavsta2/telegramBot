@@ -15,12 +15,12 @@ class Parser:
             'Accept-Language': 'ru',
         }
 
-    def get_pages_links(self) -> Union[None, dict]:
+    def get_pages_links(self):
         """метод возвращает словарь со ссылками на все страницы сайта"""
         links_dict = {"https://www.hirobots.spb.ru": False}
         links_queue = {"https://www.hirobots.spb.ru"}
 
-        def recursion_func(link: str):
+        def recursion_func(link: str) -> Union[None, dict]:
             if all(links_dict.values()):
                 return None
             links_dict[link] = True
@@ -61,7 +61,7 @@ class Parser:
         return links_set
 
     @staticmethod
-    def image_download(self, links_set):
+    def image_download(links_set: set):
         """метод сохраняет фото в текущую папку"""
         for link in links_set:
             photo = requests.get(link)
@@ -78,10 +78,6 @@ def main():
     for page in pages.keys():
         images = parser.get_images(page)
         total_link_set = total_link_set.union(images)
-
-    print(total_link_set)
-    print(len(total_link_set))
-
     parser.image_download(total_link_set)
 
 
