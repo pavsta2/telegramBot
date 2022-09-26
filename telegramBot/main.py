@@ -2,6 +2,7 @@ import os
 import re
 
 import telebot
+import requests
 from yaweather import YaWeather, Russia
 from translate import Translator
 from dotenv import load_dotenv
@@ -180,12 +181,12 @@ def got_text(message):
         markup_cont.add(btn_price)
         bot.send_message(message.chat.id, 'Все наши контактные данные Вы можете '
                                           'найти в разделе:', reply_markup=markup_cont)
-    #запрос погоды
+    # запрос погоды
     elif re.search(r'погода', text) is not None or text == '10':
         api_key = os.environ.get("YANDEX_API_KEY")
         y = YaWeather(api_key=api_key)
         res = y.forecast(Russia.SaintPetersburg)
-        tr = Translator(from_lang='English', to_lang='Russian') #объект класса Translator для перевода погоды с анг
+        tr = Translator(from_lang='English', to_lang='Russian')  # объект класса Translator для перевода погоды с анг
 
         forecast = ''
         for f in res.forecasts:
@@ -208,7 +209,10 @@ def got_text(message):
                                           'Все контакты указаны в разделе:', reply_markup=markup_oops)
 
 
-bot.polling(none_stop=True)  # запускаем бесконечный цикл
+try:
+    bot.polling(none_stop=True, interval=0)  # запускаем бесконечный цикл
+except requests.exceptions.ReadTimeout:
+    pass
 
 if __name__ == '__main__':
     pass
