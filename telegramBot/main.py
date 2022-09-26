@@ -1,8 +1,9 @@
 import os
 import re
+import requests
+import logging
 
 import telebot
-import requests
 from yaweather import YaWeather, Russia
 from translate import Translator
 from dotenv import load_dotenv
@@ -13,6 +14,10 @@ load_dotenv()
 token = os.getenv('TOKEN')  # получаем токен из переменных окружения
 YANDEX_API_KEY = os.getenv('YANDEX_API_KEY')  # получаем токен api yandex погоды из переменных окружения
 bot = telebot.TeleBot(token)  # создаем экземпляр бота
+logging.basicConfig(level=logging.WARNING,
+                    filename='botlogs.log',
+                    format="%(asctime)s - %(module)s - %(levelname)s - %(funcName)s: "
+                           "%(lineno)d - %(message)s", datefmt='%H:%M:%S', )
 
 
 # создаем декорированную функцию для обработки сообщений от пользователя
