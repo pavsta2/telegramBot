@@ -80,7 +80,7 @@ def got_text(message):
             or text == '3':
         markup_reg = types.InlineKeyboardMarkup(row_width=1)
         btn_reg = types.InlineKeyboardButton('Запись на пробное',
-                                             url='https://hirobots.spb.ru/order')
+                                             url='https://hirobots.spb.ru/probnoye')
         markup_reg.add(btn_reg)
         bot.send_message(message.chat.id, 'Перейдите в раздел сайта он-лайн записи, '
                                           'заполните поля и отправьте заявку:', reply_markup=markup_reg)
