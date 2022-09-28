@@ -216,7 +216,7 @@ def got_text(message):
 
 try:
     bot.polling(none_stop=True, interval=0)  # запускаем бесконечный цикл
-except requests.exceptions.ReadTimeout:
+except (requests.exceptions.ReadTimeout, telebot.apihelper.ApiException) as e:
     pass
 
 if __name__ == '__main__':
