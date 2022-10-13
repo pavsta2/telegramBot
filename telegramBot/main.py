@@ -2,6 +2,7 @@ import os
 import re
 import requests
 import logging
+import time
 
 import telebot
 from yaweather import YaWeather, Russia
@@ -214,10 +215,10 @@ def got_text(message):
                                           'Все контакты указаны в разделе:', reply_markup=markup_oops)
 
 
-try:
-    bot.polling(none_stop=True, interval=0)  # запускаем бесконечный цикл
-except (requests.exceptions.ReadTimeout, telebot.apihelper.ApiException, telebot.apihelper.ApiTelegramException) as e:
-    pass
-
 if __name__ == '__main__':
-    pass
+    while True:
+        try:
+            bot.polling(none_stop=True, interval=0)  # запускаем бесконечный цикл
+        except Exception as e:
+            time.sleep(3)
+            print(e)
